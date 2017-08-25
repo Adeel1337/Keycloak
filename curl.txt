@@ -1,0 +1,5 @@
+curl \
+  -d "client_id=test" \
+  -d "client_secret=d9f0f4c7-1839-43b7-84ec-677924645ed5" \
+  -d "grant_type=client_credentials" \
+  "http://localhost:8080/auth/realms/adeel/protocol/openid-connect/token"
