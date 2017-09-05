@@ -6,17 +6,16 @@ class Keycloak
   include HTTParty
 
 
-  attr_accessor :client_id, :client_secret, :grant_type
+  attr_accessor :client_id, :client_secret
 
-  def initialize(client_id, client_secrtet, grant_type)
+  def initialize(client_id, client_secret)
     @client_id = client_id
     @client_secret = client_secret
-    @grant_type = grant_type
   end
 
   def tokens
-    response = self.post("http://localhost:8080/auth/realms/adeel/protocol/openid-connect/token",
-      query: { client_id: @client_id, client_secret: @client_secret, grant_type:  "client_credentials" })
+	  self.class.post("http://localhost:8080/auth/realms/adeel/protocol/openid-connect/token",
+      body: { client_id: @client_id, client_secret: @client_secret, grant_type:  "client_credentials" })
 
   end
 
@@ -25,6 +24,14 @@ end
 
 
 
-keycloak = Keycloak.new()
+keycloak = Keycloak.new("test","48ed04cd-0013-4bf4-bae2-50fb7ab8128d")
 
-puts keycloak
+puts keycloak.tokens.inspect
+
+
+
+#refactor to get access token as a string strip out everything else.
+#
+#key value of access token, hash parsed_response
+#
+#and expires in 
